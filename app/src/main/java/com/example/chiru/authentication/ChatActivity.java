@@ -33,6 +33,14 @@ public class ChatActivity extends AppCompatActivity {
     private EditText messageToSend;
 
     @Override
+    public void onPause(){
+        super.onPause();
+        if(chatMessages.size() > 10){
+            destructMessages();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
@@ -58,16 +66,18 @@ public class ChatActivity extends AppCompatActivity {
         mRef.push().setValue(messageToSend);
     }
 
+    private void destructMessages(){
+        mRef.removeValue();
+    }
+
 
     private class MessageLoaderListener implements ChildEventListener{
 
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
             chatMessages.add(dataSnapshot.getValue(ChatMessage.class));
-            adapter = new ChatMessageAdapter(chatMessages);
-            mRecycleView.setAdapter(adapter);
-            mRecycleView.setLayoutManager
-                    (new LinearLayoutManager(ChatActivity.this, LinearLayoutManager.VERTICAL, false));
+            resetAdapter();
+
         }
 
         @Override
@@ -77,7 +87,8 @@ public class ChatActivity extends AppCompatActivity {
 
         @Override
         public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+            chatMessages = new ArrayList<>();
+            resetAdapter();
         }
 
         @Override
@@ -104,5 +115,12 @@ public class ChatActivity extends AppCompatActivity {
                 //messageToSend.setImeOptions(EditorInfo.IME_ACTION_DONE);
             }
         }
+    }
+
+    private void resetAdapter(){
+        adapter = new ChatMessageAdapter(chatMessages);
+        mRecycleView.setAdapter(adapter);
+        mRecycleView.setLayoutManager
+                (new LinearLayoutManager(ChatActivity.this, LinearLayoutManager.VERTICAL, false));
     }
 }

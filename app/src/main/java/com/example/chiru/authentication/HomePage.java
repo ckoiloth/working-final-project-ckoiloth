@@ -25,25 +25,7 @@ public class HomePage extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        database.getReference("/Users/"+user.key).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                user = dataSnapshot.getValue(User.class);
-                listOfChats = (ArrayList<Chat>) user.getChats();
-
-
-                ChatActivityViewAdapter chatActivityViewAdapter = new ChatActivityViewAdapter(listOfChats, user);
-                mRecyclerView = (RecyclerView) findViewById(R.id.chatList);
-                mRecyclerView.setAdapter(chatActivityViewAdapter);
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(HomePage.this, LinearLayoutManager.VERTICAL, false));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+        database.getReference("/Users/"+user.key).addValueEventListener(new UserValueEventListener());
     }
 
     @Override
@@ -68,6 +50,26 @@ public class HomePage extends AppCompatActivity {
                 startActivity(toCreateNewChat);
             }
         });
+    }
+
+    private class UserValueEventListener implements ValueEventListener{
+
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            user = dataSnapshot.getValue(User.class);
+            listOfChats = (ArrayList<Chat>) user.getChats();
+
+
+            ChatActivityViewAdapter chatActivityViewAdapter = new ChatActivityViewAdapter(listOfChats, user);
+            mRecyclerView = (RecyclerView) findViewById(R.id.chatList);
+            mRecyclerView.setAdapter(chatActivityViewAdapter);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(HomePage.this, LinearLayoutManager.VERTICAL, false));
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
     }
 
 }
