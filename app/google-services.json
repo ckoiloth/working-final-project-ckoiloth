@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "375988593180",
+    "firebase_url": "https://authentication-73167.firebaseio.com",
+    "project_id": "authentication-73167",
+    "storage_bucket": "authentication-73167.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375988593180:android:931b0baa33eb9977",
+        "android_client_info": {
+          "package_name": "com.example.chiru.authentication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375988593180-020o0l1cbq72ok3dfrd2lfpa87rngqa4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chiru.authentication",
+            "certificate_hash": "263419ebe84fddd99ebdb2ed72e70252570fa797"
+          }
+        },
+        {
+          "client_id": "375988593180-na3863ihq3ejbr18ja4c249kjooij58a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwkTLEWvrzkER9ossLeVAE9j29GSP1OjI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375988593180-na3863ihq3ejbr18ja4c249kjooij58a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
