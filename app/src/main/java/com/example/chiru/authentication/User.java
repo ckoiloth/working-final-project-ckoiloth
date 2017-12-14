@@ -23,6 +23,10 @@ public class User implements Parcelable {
 
     }
 
+    /**
+     *
+     * @return The list of the users chats.
+     */
     public List<Chat> getChats(){
         if(chats == null) {
             chats = new ArrayList<>();
@@ -30,12 +34,17 @@ public class User implements Parcelable {
         return chats;
     }
 
+
     public User(String name, String key, ArrayList<Chat> chats){
         this.name = name;
         this.key = key;
         this.chats = chats;
     }
 
+    /**
+     * Adds a new chat.
+     * @param chatToAdd The chat to add.
+     */
     public void addNewChat(Chat chatToAdd){
         if(chats == null){
             chats = new ArrayList<>();
@@ -44,6 +53,10 @@ public class User implements Parcelable {
         pushNewChatToDb(chatToAdd);
     }
 
+    /**
+     * Adds the new chat to the database.
+     * @param newChat The new chat to add.
+     */
     private void pushNewChatToDb(Chat newChat){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference =
@@ -52,6 +65,11 @@ public class User implements Parcelable {
         reference.setValue(newChat);
     }
 
+    /**
+     * Checks if two users are the same by using their database key.
+     * @param user
+     * @return
+     */
     @Override
     public boolean equals(Object user){
         if(user instanceof User) {

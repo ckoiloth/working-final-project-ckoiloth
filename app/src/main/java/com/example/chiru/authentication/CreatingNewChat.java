@@ -84,6 +84,12 @@ public class CreatingNewChat extends AppCompatActivity {
 
     }
 
+    /**
+     * Creates new chat and will add this to the database.
+     * @param name the name of the chat to create.
+     * @param users The list of users that will be in this chat.
+     * @return
+     */
 
     private Chat createNewChat(String name, ArrayList<User> users) {
         Chat newChat = new Chat(name);
@@ -94,6 +100,9 @@ public class CreatingNewChat extends AppCompatActivity {
         return newChat;
     }
 
+    /**
+     * This is a listener that listens for newly created chats.
+     */
     private class CreateChatListener implements View.OnClickListener{
         public ArrayList<User> users = new ArrayList<>();
 

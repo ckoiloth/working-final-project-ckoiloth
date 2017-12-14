@@ -21,6 +21,9 @@ public class HomePage extends AppCompatActivity {
     private ArrayList<Chat> listOfChats;
     private RecyclerView mRecyclerView;
 
+    /**
+     * This will add a value event listener to the changed users.
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -28,6 +31,10 @@ public class HomePage extends AppCompatActivity {
         database.getReference("/Users/"+user.key).addValueEventListener(new UserValueEventListener());
     }
 
+    /**
+     * This will  hte homepage and then list out the chats available to the specific user.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +45,9 @@ public class HomePage extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Button to add a new chat.
+     */
     private void createAddChatButton() {
         addChat = (Button) findViewById(R.id.addNewChat);
 
@@ -52,6 +61,9 @@ public class HomePage extends AppCompatActivity {
         });
     }
 
+    /**
+     * This will first check for all chats first available.
+     */
     private class UserValueEventListener implements ValueEventListener{
 
         @Override

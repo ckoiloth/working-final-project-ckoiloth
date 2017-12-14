@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String USER = "USER";
     public static final String CHATLIST = "List Of Chats";
 
+    /**
+     * If the user is logged in then, automatically redirected to homepage.
+     */
     @Override
     public void onStart(){
         super.onStart();
@@ -51,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Creates the google sign in button, and initalizes the state.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,13 +89,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Signs in the user.
+     */
     private void userSignIn(){
         Intent authIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(authIntent , SIGN_IN);
     }
 
-
+    /**
+     * Asks google for a token.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
@@ -104,6 +118,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Adds user to the firebase database.
+     * @param googleSignInAccount
+     */
     public void FirebaseUserAuth(GoogleSignInAccount googleSignInAccount){
         AuthCredential authCredential = GoogleAuthProvider.getCredential(googleSignInAccount.getIdToken(), null);
 
@@ -121,6 +139,10 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * If the user is not loaded in the database, will load it.
+     * @return The new user that is created.
+     */
     private User setNewUser(){
         String currentUser = firebaseAuth.getCurrentUser().getUid();
         User newUser =
@@ -130,6 +152,9 @@ public class MainActivity extends AppCompatActivity {
         return newUser;
     }
 
+    /**
+     * Intent that reroutes to the homepage.
+     */
     private void rerouteToHomepage(){
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         final Intent rerouteToHomePage = new Intent(MainActivity.this, HomePage.class);
