@@ -22,11 +22,22 @@ public class ChatActivityViewAdapter extends RecyclerView.Adapter<ChatActivityVi
     private User user;
     public static final String USER_NAME = "Username";
 
+    /**
+     * Creates a chat activity adapter, and passes in a list
+     * @param listOfChats
+     * @param user
+     */
     public ChatActivityViewAdapter(ArrayList<Chat> listOfChats, User user){
         restaurantList = listOfChats;
         this.user = user;
     }
 
+    /**
+     * Creates a chat view holder.
+     * @param parent The parent.
+     * @param viewType
+     * @return A chat view holder.
+     */
     @Override
     public ChatViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View chatItem = LayoutInflater.from(parent.getContext())
@@ -35,6 +46,11 @@ public class ChatActivityViewAdapter extends RecyclerView.Adapter<ChatActivityVi
         return new ChatViewHolder(chatItem);
     }
 
+    /**
+     * Binds a view holder in the adapter.
+     * @param holder The holder to bind.
+     * @param position The specific chat to bind.
+     */
     @Override
     public void onBindViewHolder(ChatViewHolder holder, int position){
         final Chat CHAT = restaurantList.get(position);
@@ -49,11 +65,19 @@ public class ChatActivityViewAdapter extends RecyclerView.Adapter<ChatActivityVi
         });
     }
 
+    /**
+     * The items to count.
+     * @return The number of items.
+     */
     public int getItemCount(){
         return restaurantList.size();
     }
 
-
+    /**
+     * Reroutes to the messages.
+     * @param chatContext The context of the chat.
+     * @param clickedOn Which chat is clicked on.
+     */
     private void rerouteToMessages(Context chatContext, Chat clickedOn){
         Intent rerouteToMessages = new Intent(chatContext, ChatActivity.class);
         rerouteToMessages.putExtra(MESSAGE_KEY, clickedOn.getMessageKey());

@@ -32,6 +32,10 @@ public class ChatActivity extends AppCompatActivity {
     private ImageView sendMessageButton;
     private EditText messageToSend;
 
+    /**
+     * If there are more than a certain messages, then the messages will destruct. And the
+     * adapter resets.
+     */
     @Override
     public void onPause(){
         super.onPause();
@@ -40,6 +44,10 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Will create the chat chat activity.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +66,10 @@ public class ChatActivity extends AppCompatActivity {
         sendMessageButton.setOnClickListener(new SendMessageListener());
     }
 
+    /**
+     * Sends the message to the database and the other users.
+     * @param message The message to send.
+     */
     private void sendMessage(String message){
         ChatMessage messageToSend = new ChatMessage();
         messageToSend.message = message;
@@ -66,18 +78,22 @@ public class ChatActivity extends AppCompatActivity {
         mRef.push().setValue(messageToSend);
     }
 
+    /**
+     * Will destroy the messages.
+     */
     private void destructMessages(){
         mRef.removeValue();
     }
 
-
+    /**
+     * This is a a class that listens to the messages and adds it to the firebase recycler view.
+     */
     private class MessageLoaderListener implements ChildEventListener{
 
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
             chatMessages.add(dataSnapshot.getValue(ChatMessage.class));
             resetAdapter();
-
         }
 
         @Override
@@ -102,21 +118,22 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * When button to send message is click, sends the message.
+     */
     private class SendMessageListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
             if(messageToSend.getText().length() != 0){
                 sendMessage(messageToSend.getText().toString());
                 messageToSend.setText("");
-                InputMethodManager imm = (InputMethodManager)ChatActivity
-                        .this.getSystemService(ChatActivity.this.INPUT_METHOD_SERVICE);
-
-                imm.hideSoftInputFromInputMethod(messageToSend.getWindowToken(), 0);
-                //messageToSend.setImeOptions(EditorInfo.IME_ACTION_DONE);
             }
         }
     }
 
+    /**
+     * Resets the adapter to handle the changes.
+     */
     private void resetAdapter(){
         adapter = new ChatMessageAdapter(chatMessages);
         mRecycleView.setAdapter(adapter);

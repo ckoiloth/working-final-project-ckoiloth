@@ -39,6 +39,10 @@ public class CreatingNewChat extends AppCompatActivity {
         super.onStart();
     }
 
+    /**
+     * Creates an activity for a new chat.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +83,7 @@ public class CreatingNewChat extends AppCompatActivity {
         });
 
     }
+
 
     private Chat createNewChat(String name, ArrayList<User> users) {
         Chat newChat = new Chat(name);

@@ -21,6 +21,12 @@ public class Chat implements Parcelable {
 
     }
 
+    /**
+     * This will create a new chat, create a message key, and push both of these to the
+     * firebase database.
+     * @param name The name of the chat to add.
+     */
+
     public Chat(String name){
         this.name = name;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -29,19 +35,26 @@ public class Chat implements Parcelable {
         messageKey = messages.push().getKey();
     }
 
-
-//    public void addUser(User user){
-//        users.add(user);
-//    }
-
+    /**
+     * Sets The name of the chat.
+     * @param name
+     */
     public void setName(String name){
         this.name = name;
     }
 
+    /**
+     * Gets the name of the chat.
+     * @return The name of the chat.
+     */
     public String getName(){
         return name;
     }
 
+    /**
+     *
+     * @return The key of this chats messages.
+     */
     public String getMessageKey(){
         return messageKey;
     }
